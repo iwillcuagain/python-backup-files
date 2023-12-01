@@ -31,10 +31,15 @@ def file_backup(file, src, dest):
     print("file move successful")
 
 
-def dir_backup():
-    parser.add_argument('--dir')
-    parser.add_argument('--src')
-    parser.add_argument('--dest')
+def dir_backup(directory, src, dest):
+    parser.add_argument('--dir', nargs=1, required=True, help='Directory folder(s)')
+    parser.add_argument('--src', nargs=1, required=True, help='directory of input folders')
+    parser.add_argument('--dest', nargs=1, required=True, help='Intended destination for folder')
+
+    args = parser.parse_args(['--dir', directory, '--src', src, '--dest', dest])
+    user_folder = args.directory
+    src_directory = args.src[0]
+    dest_directory = args.dest[0]
 
     return 0
 
@@ -49,7 +54,10 @@ while True:
         file_backup(file, src, dest)
         break
     elif userinput == "directory":
-        dir_backup()
+        directory = input("input directory name: ")
+        src = input('input directory location: ')
+        dest = input('input destination you want file: ')
+        dir_backup(directory, src, dest)
         break
     elif userinput == "quit":
         sys.exit()
